@@ -1,0 +1,517 @@
+#
+version: "2.4"
+
+services:
+
+  vmx1-lab:
+    image: juniper/openjnpr-container-vmx:bionic
+    hostname: vmx1-lab
+    container_name: vmx1-lab
+    privileged: true
+    tty: true
+    stdin_open: true
+    ports:
+      - "22"
+      - "830"
+    environment:
+      - ID=vmx1-lab
+#      - LICENSE=license.txt
+      - IMAGE=junos-vmx-x86-64-19.4R3-S6.1.qcow2
+      - PUBLICKEY=id_rsa.pub
+      - CONFIG=vmx1-lab.conf
+      - IO_CORE=0
+      - WORKER_CORE=1
+      - MASTER_CORE=1
+      - VMXT_CORE=2
+#      - HDDIMAGE=/images/p1.qcow2 # if we want it to be persistant
+    volumes:
+#      - $PWD/images:/images
+      - $PWD/juniper-vmx:/u:ro
+      - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      management:
+        ipv4_address: 172.18.0.11
+        ipv6_address: fd00::11
+      peerings:
+      vnet1-p2p:
+      vnet3-p2p:
+
+  vmx2-lab:
+    image: juniper/openjnpr-container-vmx:bionic
+    hostname: vmx2-lab
+    container_name: vmx2-lab
+    privileged: true
+    tty: true
+    stdin_open: true
+    ports:
+      - "22"
+      - "830"
+    environment:
+      - ID=vmx2-lab
+#      - LICENSE=license.txt
+      - IMAGE=junos-vmx-x86-64-19.4R3-S6.1.qcow2
+      - PUBLICKEY=id_rsa.pub
+      - CONFIG=vmx2-lab.conf
+      - IO_CORE=3
+      - WORKER_CORE=4
+      - MASTER_CORE=4
+      - VMXT_CORE=5
+    volumes:
+      - $PWD/juniper-vmx:/u:ro
+      - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      management:
+        ipv4_address: 172.18.0.12
+        ipv6_address: fd00::12
+      peerings:
+      vnet1-p2p:
+      vnet2-p2p:
+
+  vmx3-lab:
+    image: juniper/openjnpr-container-vmx:bionic
+    hostname: vmx3-lab
+    container_name: vmx3-lab
+    privileged: true
+    tty: true
+    stdin_open: true
+    ports:
+      - "22"
+      - "830"
+    environment:
+      - ID=vmx3-lab
+#      - LICENSE=license.txt
+      - IMAGE=junos-vmx-x86-64-19.4R3-S6.1.qcow2
+      - PUBLICKEY=id_rsa.pub
+      - CONFIG=vmx3-lab.conf
+      - IO_CORE=6
+      - WORKER_CORE=6
+      - MASTER_CORE=6
+      - VMXT_CORE=7
+    volumes:
+      - $PWD/juniper-vmx:/u:ro
+      - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      management:
+        ipv4_address: 172.18.0.13
+        ipv6_address: fd00::13
+      peerings:
+      vnet2-p2p:
+      vnet3-p2p:
+
+  salt-master:
+    image: ${SALT_MASTER}
+    hostname: salt-master
+    container_name: salt-master
+    command: ["/sbin/my_init"]
+    volumes:
+      - $PWD/salt/master:/etc/salt/master
+#      - $PWD/salt/inventory:/etc/salt/inventory
+      - $PWD/salt/pillar/:/srv/pillar/
+      - $PWD/salt/states/:/srv/salt/states/
+      - $PWD/salt/reactor/:/srv/salt/reactor/
+      - $PWD/napalm-ssh-keys/:/u/napalm-ssh-keys/
+      - $PWD/master-api-auth/:/u/master-api-auth/
+      - $PWD/master-authorized-keys/authorized_keys:/root/.ssh/authorized_keys
+      - $PWD/storage:/storage
+    environment:
+      - "SALT_LOG_LEVEL=info"
+      - "PEERING_MANAGER_API_BASE_URL=http://peering-manager:8080/api/"
+      - "PEERING_MANAGER_API_TOKEN=0123456789abcdef0123456789abcdef01234567"
+      - "NETBOX_API_BASE_URL=http://netbox:8000/api/"
+      - "NETBOX_API_TOKEN=0123456789abcdef0123456789abcdef01234567"
+      - "BGP_ANNOUNCEMENT_COMMUNITY=65000:3:1999"
+    ports:
+      - "2222:22"
+      - "8888:8080"
+    extra_hosts:
+      - "peering-manager:172.18.0.1"
+      - "netbox:172.18.0.1"
+    networks:
+      management:
+
+  proxy-vmx1-lab:
+    image: ${SALT_PROXY_MINION}
+    hostname: proxy-vmx1-lab
+    container_name: proxy-vmx1-lab
+    command: ["/sbin/my_init"]
+    volumes:
+      - $PWD/salt/proxy:/etc/salt/proxy
+#      - $PWD/salt/proxy.d/:/etc/salt/proxy.d/
+      - $PWD/napalm-ssh-keys/:/u/napalm-ssh-keys/
+      - $PWD/storage:/storage
+    environment:
+      - "PROXY_LOG_LEVEL=info"
+      - "PROXYID=vmx1-lab"
+    networks:
+      management:
+    depends_on:
+      - salt-master
+
+  proxy-vmx2-lab:
+    image: ${SALT_PROXY_MINION}
+    hostname: proxy-vmx2-lab
+    container_name: proxy-vmx2-lab
+    command: ["/sbin/my_init"]
+    volumes:
+      - $PWD/salt/proxy:/etc/salt/proxy
+#      - $PWD/salt/proxy.d/:/etc/salt/proxy.d/
+      - $PWD/napalm-ssh-keys/:/u/napalm-ssh-keys/
+      - $PWD/storage:/storage
+    environment:
+      - "PROXY_LOG_LEVEL=info"
+      - "PROXYID=vmx2-lab"
+    networks:
+      management:
+    depends_on:
+      - salt-master
+
+  proxy-vmx3-lab:
+    image: ${SALT_PROXY_MINION}
+    hostname: proxy-vmx3-lab
+    container_name: proxy-vmx3-lab
+    command: ["/sbin/my_init"]
+    volumes:
+      - $PWD/salt/proxy:/etc/salt/proxy
+#      - $PWD/salt/proxy.d/:/etc/salt/proxy.d/
+      - $PWD/napalm-ssh-keys/:/u/napalm-ssh-keys/
+      - $PWD/storage:/storage
+    environment:
+      - "PROXY_LOG_LEVEL=info"
+      - "PROXYID=vmx3-lab"
+    networks:
+      management:
+    depends_on:
+      - salt-master
+
+  transit1-fr:
+    image: kzorba/gobgp
+    hostname: transit1-fr
+    container_name: transit1-fr
+    command: ["/sbin/my_init"]
+    networks:
+      peerings:
+        ipv4_address: 192.168.100.110
+        ipv6_address: fd00:100::110
+    cap_add:
+      - NET_ADMIN
+    volumes:
+      - ./bgp_data:/data
+    environment:
+      - "TX_CHECKSUMMING=off"
+      - "ROUTER_ID=192.168.100.110"
+      - "LOCAL_AS=65100"
+      - "PEER_AS=65000"
+      - "PEER_IPv4=192.168.100.10"
+      - "PEER_IPv6=fd00:100::10"
+
+  peer1_ix-fr:
+    image: kzorba/gobgp
+    hostname: peer1_ix-fr
+    container_name: peer1_ix-fr
+    command: ["/sbin/my_init"]
+    networks:
+      peerings:
+        ipv4_address: 192.168.100.111
+        ipv6_address: fd00:100::111
+    cap_add:
+      - NET_ADMIN
+    volumes:
+      - ./bgp_data:/data
+    environment:
+      - "TX_CHECKSUMMING=off"
+      - "ROUTER_ID=192.168.100.111"
+      - "LOCAL_AS=65200"
+      - "PEER_AS=65000"
+      - "PEER_IPv4=192.168.100.10"
+      - "PEER_IPv6=fd00:100::10"
+
+  peer2_ix-fr:
+    image: kzorba/gobgp
+    hostname: peer2_ix-fr
+    container_name: peer2_ix-fr
+    command: ["/sbin/my_init"]
+    networks:
+      peerings:
+        ipv4_address: 192.168.100.112
+        ipv6_address: fd00:100::112
+    cap_add:
+      - NET_ADMIN
+    volumes:
+      - ./bgp_data:/data
+    environment:
+      - "TX_CHECKSUMMING=off"
+      - "ROUTER_ID=192.168.100.112"
+      - "LOCAL_AS=65201"
+      - "PEER_AS=65000"
+      - "PEER_IPv4=192.168.100.10"
+      - "PEER_IPv6=fd00:100::10"
+
+  peer3_ix-fr:
+    image: kzorba/gobgp
+    hostname: peer3_ix-fr
+    container_name: peer3_ix-fr
+    command: ["/sbin/my_init"]
+    networks:
+      peerings:
+        ipv4_address: 192.168.100.113
+        ipv6_address: fd00:100::113
+    cap_add:
+      - NET_ADMIN
+    volumes:
+      - ./bgp_data:/data
+    environment:
+      - "TX_CHECKSUMMING=off"
+      - "ROUTER_ID=192.168.100.113"
+      - "LOCAL_AS=65202"
+      - "PEER_AS=65000"
+      - "PEER_IPv4=192.168.100.10"
+      - "PEER_IPv6=fd00:100::10"
+
+  peer4_ix-fr:
+    image: kzorba/gobgp
+    hostname: peer4_ix-fr
+    container_name: peer4_ix-fr
+    command: ["/sbin/my_init"]
+    networks:
+      peerings:
+        ipv4_address: 192.168.100.114
+    cap_add:
+      - NET_ADMIN
+    volumes:
+      - ./bgp_data:/data
+    environment:
+      - "TX_CHECKSUMMING=off"
+      - "ROUTER_ID=192.168.100.114"
+      - "LOCAL_AS=65203"
+      - "PEER_AS=65000"
+      - "PEER_IPv4=192.168.100.10"
+
+  transit_c1-fr:
+    image: kzorba/gobgp
+    hostname: transit_c1-fr
+    container_name: transit_c1-fr
+    command: ["/sbin/my_init"]
+    networks:
+      peerings:
+        ipv4_address: 192.168.100.116
+        ipv6_address: fd00:100::116
+    cap_add:
+      - NET_ADMIN
+    volumes:
+      - ./bgp_data:/data
+    environment:
+      - "TX_CHECKSUMMING=off"
+      - "ROUTER_ID=192.168.100.116"
+      - "LOCAL_AS=65400"
+      - "PEER_AS=65000"
+      - "PEER_IPv4=192.168.100.10"
+      - "PEER_IPv6=fd00:100::10"
+
+  b2b_c1-fr:
+    image: kzorba/gobgp
+    hostname: b2b_c1-fr
+    container_name: b2b_c1-fr
+    command: ["/sbin/my_init"]
+    networks:
+      peerings:
+        ipv4_address: 192.168.100.117
+        ipv6_address: fd00:100::117
+    cap_add:
+      - NET_ADMIN
+    volumes:
+      - ./bgp_data:/data
+    environment:
+      - "TX_CHECKSUMMING=off"
+      - "ROUTER_ID=192.168.100.117"
+      - "LOCAL_AS=4227132000"
+      - "PEER_AS=65000"
+      - "PEER_IPv4=192.168.100.10"
+      - "PEER_IPv6=fd00:100::10"
+
+  transit2-us:
+    image: kzorba/gobgp
+    hostname: transit2-us
+    container_name: transit2-us
+    command: ["/sbin/my_init"]
+    networks:
+      peerings:
+        ipv4_address: 192.168.100.120
+        ipv6_address: fd00:100::120
+    cap_add:
+      - NET_ADMIN
+    volumes:
+      - ./bgp_data:/data
+    environment:
+      - "TX_CHECKSUMMING=off"
+      - "ROUTER_ID=192.168.100.120"
+      - "LOCAL_AS=65101"
+      - "PEER_AS=65000"
+      - "PEER_IPv4=192.168.100.20"
+      - "PEER_IPv6=fd00:100::20"
+
+  peer1_pni-us:
+    image: kzorba/gobgp
+    hostname: peer1_pni-us
+    container_name: peer1_pni-us
+    command: ["/sbin/my_init"]
+    networks:
+      peerings:
+        ipv4_address: 192.168.100.121
+        ipv6_address: fd00:100::121
+    cap_add:
+      - NET_ADMIN
+    volumes:
+      - ./bgp_data:/data
+    environment:
+      - "TX_CHECKSUMMING=off"
+      - "ROUTER_ID=192.168.100.121"
+      - "LOCAL_AS=65300"
+      - "PEER_AS=65000"
+      - "PEER_IPv4=192.168.100.20"
+      - "PEER_IPv6=fd00:100::20"
+
+  peer2_pni-us:
+    image: kzorba/gobgp
+    hostname: peer2_pni-us
+    container_name: peer2_pni-us
+    command: ["/sbin/my_init"]
+    networks:
+      peerings:
+        ipv4_address: 192.168.100.122
+        ipv6_address: fd00:100::122
+    cap_add:
+      - NET_ADMIN
+    volumes:
+      - ./bgp_data:/data
+    environment:
+      - "TX_CHECKSUMMING=off"
+      - "ROUTER_ID=192.168.100.122"
+      - "LOCAL_AS=65301"
+      - "PEER_AS=65000"
+      - "PEER_IPv4=192.168.100.20"
+      - "PEER_IPv6=fd00:100::20"
+
+  transit3-mf:
+    image: kzorba/gobgp
+    hostname: transit3-mf
+    container_name: transit3-mf
+    command: ["/sbin/my_init"]
+    networks:
+      peerings:
+        ipv4_address: 192.168.100.130
+        ipv6_address: fd00:100::130
+    cap_add:
+      - NET_ADMIN
+    volumes:
+      - ./bgp_data:/data
+    environment:
+      - "TX_CHECKSUMMING=off"
+      - "ROUTER_ID=192.168.100.130"
+      - "LOCAL_AS=65102"
+      - "PEER_AS=65000"
+      - "PEER_IPv4=192.168.100.30"
+      - "PEER_IPv6=fd00:100::30"
+
+  peer1_ix-mf:
+    image: kzorba/gobgp
+    hostname: peer1_ix-mf
+    container_name: peer1_ix-mf
+    command: ["/sbin/my_init"]
+    networks:
+      peerings:
+        ipv4_address: 192.168.100.131
+        ipv6_address: fd00:100::131
+    cap_add:
+      - NET_ADMIN
+    volumes:
+      - ./bgp_data:/data
+    environment:
+      - "TX_CHECKSUMMING=off"
+      - "ROUTER_ID=192.168.100.131"
+      - "LOCAL_AS=65202"
+      - "PEER_AS=65000"
+      - "PEER_IPv4=192.168.100.30"
+      - "PEER_IPv6=fd00:100::30"
+
+  peer2_ix-mf:
+    image: kzorba/gobgp
+    hostname: peer2_ix-mf
+    container_name: peer2_ix-mf
+    command: ["/sbin/my_init"]
+    networks:
+      peerings:
+        ipv4_address: 192.168.100.132
+    cap_add:
+      - NET_ADMIN
+    volumes:
+      - ./bgp_data:/data
+    environment:
+      - "TX_CHECKSUMMING=off"
+      - "ROUTER_ID=192.168.100.132"
+      - "LOCAL_AS=65203"
+      - "PEER_AS=65000"
+      - "PEER_IPv4=192.168.100.30"
+
+networks:
+  management:
+    name: 000_management
+    driver: bridge
+    enable_ipv6: true
+    driver_opts:
+      com.docker.network.bridge.name: management
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.18.0.0/24
+          gateway: 172.18.0.1
+        - subnet: fd00::/64
+          gateway: fd00::1
+  peerings:
+    name: 001_peerings
+    driver: bridge
+    enable_ipv6: true
+    driver_opts:
+      com.docker.network.bridge.name: peerings
+    ipam:
+      driver: default
+      config:
+        - subnet: 192.168.100.0/24
+          gateway: 192.168.100.1
+        - subnet: fd00:100::/64
+          gateway: fd00:100::1
+  vnet1-p2p:
+    name: 002_vnet1-p2p
+    driver: bridge
+    enable_ipv6: true
+    driver_opts:
+      com.docker.network.bridge.name: vnet1-p2p
+      com.docker.network.bridge.mtu: 9216
+    ipam:
+      driver: default
+      config:
+        - subnet: 100.101.1.0/24
+        - subnet: 2001:db8:101:1::/64
+  vnet2-p2p:
+    name: 003_vnet2-p2p
+    driver: bridge
+    enable_ipv6: true
+    driver_opts:
+      com.docker.network.bridge.name: vnet2-p2p
+      com.docker.network.bridge.mtu: 9216
+    ipam:
+      driver: default
+      config:
+        - subnet: 100.101.2.0/24
+        - subnet: 2001:db8:101:2::/64
+  vnet3-p2p:
+    name: 004_vnet3-p2p
+    driver: bridge
+    enable_ipv6: true
+    driver_opts:
+      com.docker.network.bridge.name: vnet3-p2p
+      com.docker.network.bridge.mtu: 9216
+    ipam:
+      driver: default
+      config:
+        - subnet: 100.101.3.0/24
+        - subnet: 2001:db8:101:3::/64

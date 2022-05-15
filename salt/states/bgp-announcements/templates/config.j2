@@ -1,0 +1,21 @@
+{#
+Author: Kostas Zorbadelos (kzorba@nixly.net)
+
+Configuration settings for bgp-announcements state.
+
+Settings start
+
+-#}
+{# Internet VRF
+If the Internet access service is in a dedicated VRF set the name here
+as string. If not (Internet is in main routing instance) set the
+variable to None.
+-#}
+
+{% set internet_vrf = "NET" -%}
+
+{#
+
+Settings end
+
+-#}}

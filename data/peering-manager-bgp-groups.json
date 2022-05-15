@@ -1,0 +1,22 @@
+[
+    {
+        "name": "TRANSIT1",
+        "slug": "transit1"
+    },
+    {
+        "name": "TRANSIT2",
+        "slug": "transit2"
+    },
+    {
+        "name": "TRANSIT3",
+        "slug": "transit3"
+    },
+    {
+        "name": "PEER1_PNI",
+        "slug": "peer1_pni"
+    },
+    {
+        "name": "PEER2_PNI",
+        "slug": "peer2_pni"
+    }
+]

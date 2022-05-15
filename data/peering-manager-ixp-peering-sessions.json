@@ -1,0 +1,152 @@
+[
+    {
+        "autonomous_system": {
+            "asn": "65200"
+        },
+        "ixp_connection": {
+            "ipv6_address": "fd00:100::10/128",
+            "ipv4_address": "192.168.100.10/32"
+        },
+        "ip_address": "192.168.100.111",
+        "enabled": "true",
+        "is_route_server": "false",
+        "import_routing_policies": [
+            1
+        ]
+    },
+    {
+        "autonomous_system": {
+            "asn": "65200"
+        },
+        "ixp_connection": {
+            "ipv6_address": "fd00:100::10/128",
+            "ipv4_address": "192.168.100.10/32"
+        },
+        "ip_address": "fd00:100::111",
+        "enabled": "true",
+        "is_route_server": "false",
+        "import_routing_policies": [
+            1
+        ]
+    },
+    {
+        "autonomous_system": {
+            "asn": "65201"
+        },
+        "ixp_connection": {
+            "ipv6_address": "fd00:100::10/128",
+            "ipv4_address": "192.168.100.10/32"
+        },
+        "ip_address": "192.168.100.112",
+        "enabled": "true",
+        "is_route_server": "false",
+        "import_routing_policies": [
+            1
+        ]
+    },
+    {
+        "autonomous_system": {
+            "asn": "65201"
+        },
+        "ixp_connection": {
+            "ipv6_address": "fd00:100::10/128",
+            "ipv4_address": "192.168.100.10/32"
+        },
+        "ip_address": "fd00:100::112",
+        "enabled": "true",
+        "is_route_server": "false",
+        "import_routing_policies": [
+            1
+        ]
+    },
+    {
+        "autonomous_system": {
+            "asn": "65202"
+        },
+        "ixp_connection": {
+            "ipv6_address": "fd00:100::10/128",
+            "ipv4_address": "192.168.100.10/32"
+        },
+        "ip_address": "192.168.100.113",
+        "enabled": "true",
+        "is_route_server": "false",
+        "import_routing_policies": [
+            1
+        ]
+    },
+    {
+        "autonomous_system": {
+            "asn": "65202"
+        },
+        "ixp_connection": {
+            "ipv6_address": "fd00:100::10/128",
+            "ipv4_address": "192.168.100.10/32"
+        },
+        "ip_address": "fd00:100::113",
+        "enabled": "true",
+        "is_route_server": "false",
+        "import_routing_policies": [
+            1
+        ]
+    },
+    {
+        "autonomous_system": {
+            "asn": "65203"
+        },
+        "ixp_connection": {
+            "ipv6_address": "fd00:100::10/128",
+            "ipv4_address": "192.168.100.10/32"
+        },
+        "ip_address": "192.168.100.114",
+        "enabled": "true",
+        "is_route_server": "false",
+        "import_routing_policies": [
+            1
+        ]
+    },
+    {
+        "autonomous_system": {
+            "asn": "65202"
+        },
+        "ixp_connection": {
+            "ipv6_address": "fd00:100::30/128",
+            "ipv4_address": "192.168.100.30/32"
+        },
+        "ip_address": "192.168.100.131",
+        "enabled": "true",
+        "is_route_server": "false",
+        "import_routing_policies": [
+            1
+        ]
+    },
+    {
+        "autonomous_system": {
+            "asn": "65202"
+        },
+        "ixp_connection": {
+            "ipv6_address": "fd00:100::30/128",
+            "ipv4_address": "192.168.100.30/32"
+        },
+        "ip_address": "fd00:100::131",
+        "enabled": "true",
+        "is_route_server": "false",
+        "import_routing_policies": [
+            1
+        ]
+    },
+    {
+        "autonomous_system": {
+            "asn": "65203"
+        },
+        "ixp_connection": {
+            "ipv6_address": "fd00:100::30/128",
+            "ipv4_address": "192.168.100.30/32"
+        },
+        "ip_address": "192.168.100.132",
+        "enabled": "true",
+        "is_route_server": "false",
+        "import_routing_policies": [
+            1
+        ]
+    }
+]

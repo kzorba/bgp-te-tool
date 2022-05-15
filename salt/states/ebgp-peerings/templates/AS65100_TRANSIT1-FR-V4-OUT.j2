@@ -1,0 +1,15 @@
+policy-statement CUSTOM-AS65100_TRANSIT1-FR-V4-OUT {
+    term ANNOUNCE_THIS_LAN {
+        from {
+          prefix-list-filter CUSTOM_AS65100_TRANSIT1-FR-V4-OUT_PFL exact;
+        }
+        then accept;
+    }
+    term DEFAULT {
+        then reject;
+    }
+}
+
+prefix-list CUSTOM_AS65100_TRANSIT1-FR-V4-OUT_PFL {
+    100.105.0.0/24;
+}

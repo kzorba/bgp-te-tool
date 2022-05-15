@@ -1,0 +1,102 @@
+[
+    {
+        "asn": "65000",
+        "name": "Local AS",
+        "comments": "Our local AS",
+        "ipv6_max_prefixes": "0",
+        "ipv6_max_prefixes_peeringdb_sync": "false",
+        "ipv4_max_prefixes": "0",
+        "ipv4_max_prefixes_peeringdb_sync": "false",
+        "affiliated": "true"
+    },
+    {
+        "asn": "65100",
+        "name": "Transit Provider 1",
+        "comments": "Transit Provider 1",
+        "ipv6_max_prefixes": "0",
+        "ipv6_max_prefixes_peeringdb_sync": "false",
+        "ipv4_max_prefixes": "0",
+        "ipv4_max_prefixes_peeringdb_sync": "false",
+        "affiliated": "false"
+    },
+    {
+        "asn": "65101",
+        "name": "Transit Provider 2",
+        "comments": "Transit Provider 2",
+        "ipv6_max_prefixes": "0",
+        "ipv6_max_prefixes_peeringdb_sync": "false",
+        "ipv4_max_prefixes": "0",
+        "ipv4_max_prefixes_peeringdb_sync": "false",
+        "affiliated": "false"
+    },
+    {
+        "asn": "65102",
+        "name": "Transit Provider 3",
+        "comments": "Transit Provider 3",
+        "ipv6_max_prefixes": "0",
+        "ipv6_max_prefixes_peeringdb_sync": "false",
+        "ipv4_max_prefixes": "0",
+        "ipv4_max_prefixes_peeringdb_sync": "false",
+        "affiliated": "false"
+    },
+    {
+        "asn": "65200",
+        "name": "Peer_IX 1",
+        "comments": "A peer in an IX",
+        "ipv6_max_prefixes": "0",
+        "ipv6_max_prefixes_peeringdb_sync": "false",
+        "ipv4_max_prefixes": "0",
+        "ipv4_max_prefixes_peeringdb_sync": "false",
+        "affiliated": "false"
+    },
+    {
+        "asn": "65201",
+        "name": "Peer_IX 2",
+        "comments": "A peer in an IX",
+        "ipv6_max_prefixes": "0",
+        "ipv6_max_prefixes_peeringdb_sync": "false",
+        "ipv4_max_prefixes": "0",
+        "ipv4_max_prefixes_peeringdb_sync": "false",
+        "affiliated": "false"
+    },
+    {
+        "asn": "65202",
+        "name": "Peer_IX 3",
+        "comments": "A peer in an IX",
+        "ipv6_max_prefixes": "0",
+        "ipv6_max_prefixes_peeringdb_sync": "false",
+        "ipv4_max_prefixes": "0",
+        "ipv4_max_prefixes_peeringdb_sync": "false",
+        "affiliated": "false"
+    },
+    {
+        "asn": "65203",
+        "name": "Peer_IX 4",
+        "comments": "A peer in an IX",
+        "ipv6_max_prefixes": "0",
+        "ipv6_max_prefixes_peeringdb_sync": "false",
+        "ipv4_max_prefixes": "0",
+        "ipv4_max_prefixes_peeringdb_sync": "false",
+        "affiliated": "false"
+    },
+    {
+        "asn": "65300",
+        "name": "Peer_PNI 1",
+        "comments": "A peer with a PNI",
+        "ipv6_max_prefixes": "0",
+        "ipv6_max_prefixes_peeringdb_sync": "false",
+        "ipv4_max_prefixes": "0",
+        "ipv4_max_prefixes_peeringdb_sync": "false",
+        "affiliated": "false"
+    },
+    {
+        "asn": "65301",
+        "name": "Peer_PNI 2",
+        "comments": "A peer with a PNI",
+        "ipv6_max_prefixes": "0",
+        "ipv6_max_prefixes_peeringdb_sync": "false",
+        "ipv4_max_prefixes": "0",
+        "ipv4_max_prefixes_peeringdb_sync": "false",
+        "affiliated": "false"
+    }
+]

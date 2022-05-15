@@ -1,0 +1,27 @@
+{#
+Author: Kostas Zorbadelos (kzorba@nixly.net)
+
+Configuration settings for ebgp-peerings state. 
+
+Settings start
+
+-#}
+{# Our own AS number -#}
+{% set local_asn = 65000 -%}
+{# Locations map, used in large communities generation -#}
+{% set geolocations = { 'US': 840, 'FR': 250, 'GF': 254, 'GP': 312, 'MF': 663, 'MQ': 474 } -%}
+{# Our IPv4 allocations -#}
+{% set v4_allocations = [ '100.64.0.0/10' ] -%}
+{# Our IPv6 allocations -#}
+{% set v6_allocations = [ '2001:db8::/32' ] -%}
+{# Our transit customers' ASNs -#}
+{% set transit_customers_asns = [ 65400, 65401 ] -%}
+{# Mapping of transit providers to blackhole communities.
+   Contains transit provider ASN as key and community string as value #}
+{% set transit_blackhole_communities = { 65100: '65100:6969', 65101: '65101:777' } %}
+{#
+
+Settings end
+
+-#}}
+

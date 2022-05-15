@@ -1,0 +1,153 @@
+{#-
+
+Author: Kostas Zorbadelos (kzorba@nixly.net)
+
+BGP announcements configuration for JunOS.
+Jinja template that creates a JunOS configuration group snippet.
+The JunOS group produced will contain static or aggregate routes for
+the prefixes we want to announce, tagged with the appropriate communities.
+The group can be applied in main routing instance or in a dedicated
+Internet service VRF.
+
+-#}
+
+{%- import "bgp-announcements/templates/config.j2" as conf -%}
+
+{%- set bgp_announcements = salt["pillar.get"]("bgp:announcements", {}) %}
+{%- set direct_peerings = salt["pillar.get"]("bgp:direct-peerings", {}) %}
+{%- set ix_peerings = salt["pillar.get"]("bgp:internet-exchange-peerings", {}) %}
+{%- if (bgp_announcements) and (direct_peerings or ix_peerings) %}
+    {%- set v4_aggregate = [] %}
+    {%- set v6_aggregate = [] %}
+    {%- set v4_static = [] %}
+    {%- set v6_static = [] %}
+    {%- for a in bgp_announcements %}
+        {%- if a["address-family"] == "IPv4" and a["route-type"] == "aggregate" %}
+            {%- do v4_aggregate.append(a) %}
+        {%- elif a["address-family"] == "IPv4" and a["route-type"] == "static" %}
+            {%- do v4_static.append(a) %}
+        {%- elif a["address-family"] == "IPv6" and a["route-type"] == "aggregate" %}
+            {%- do v6_aggregate.append(a) %}
+        {%- elif a["address-family"] == "IPv6" and a["route-type"] == "static" %}
+            {%- do v6_static.append(a) %}
+        {%- endif %}
+    {%- endfor -%}
+groups {
+    replace: BGP-ANNOUNCEMENTS {
+        {%- if (conf.internet_vrf) %}
+        routing-instances {
+            {{ conf.internet_vrf }} {
+        {%- endif %}
+                routing-options {
+        {%- if v4_aggregate or v4_static %}
+            {%- if (conf.internet_vrf) %}
+                    rib {{ conf.internet_vrf }}.inet.0 {
+            {%- else %}
+                    rib inet.0 {
+            {%- endif %}
+            {%- if v4_static %}
+                        static {
+                {%- for a in v4_static %}
+                            route {{ a["prefix"] }} {
+                                preference {{ a["preference"]}};
+                                as-path {
+                                    origin igp;
+                                }
+                                community [
+                    {%- for c in a["communities"] %}
+                                    {{ c | regex_replace('(\d+:\d+:\d+$)', 'large:\\1') }}
+                    {%- endfor %}
+                                ];
+                    {%- if (a["next-hop"] | is_ipv4) %}
+                                next-hop {{ a["next-hop"] }};
+                                resolve;
+                    {%- else %}
+                                {{ a["next-hop"] }};
+                    {%- endif %}
+                            }
+                {%- endfor %}
+                        }
+            {%- endif %}
+            {%- if v4_aggregate %}
+                        aggregate {
+                {%- for a in v4_aggregate %}
+                            route {{ a["prefix"] }} {
+                                preference {{ a["preference"]}};
+                                as-path {
+                                    origin igp;
+                                }
+                                community [
+                    {%- for c in a["communities"] %}
+                                    {{ c | regex_replace('(\d+:\d+:\d+$)', 'large:\\1') }}
+                    {%- endfor %}
+                                ];
+                    {%- if (a["next-hop"] == "reject") %}
+                    {%- else %}
+                                discard;
+                    {%- endif %}
+                            }
+                {%- endfor %}
+                        }
+            {%- endif %}
+                    }
+        {%- endif %}
+        {%- if v6_aggregate or v6_static %}
+            {%- if (conf.internet_vrf) %}
+                    rib {{ conf.internet_vrf }}.inet6.0 {
+            {%- else %}
+                    rib inet6.0 {
+            {%- endif %}
+            {%- if v6_static %}
+                        static {
+                {%- for a in v6_static %}
+                            route {{ a["prefix"] }} {
+                                preference {{ a["preference"]}};
+                                as-path {
+                                    origin igp;
+                                }
+                                community [
+                    {%- for c in a["communities"] %}
+                                    {{ c | regex_replace('(\d+:\d+:\d+$)', 'large:\\1') }}
+                    {%- endfor %}
+                                ];
+                    {%- if (a["next-hop"] | is_ipv6) %}
+                                next-hop {{ a["next-hop"] }};
+                                resolve;
+                    {%- else %}
+                                {{ a["next-hop"] }};
+                    {%- endif %}
+                            }
+                {%- endfor %}
+                        }
+            {%- endif %}
+            {%- if v6_aggregate %}
+                        aggregate {
+                {%- for a in v6_aggregate %}
+                            route {{ a["prefix"] }} {
+                                preference {{ a["preference"]}};
+                                as-path {
+                                    origin igp;
+                                }
+                                community [
+                    {%- for c in a["communities"] %}
+                                    {{ c | regex_replace('(\d+:\d+:\d+$)', 'large:\\1') }}
+                    {%- endfor %}
+                                ];
+                    {%- if (a["next-hop"] == "reject") %}
+                    {%- else %}
+                                discard;
+                    {%- endif %}
+                            }
+                {%- endfor %}
+                        }
+            {%- endif %}
+                    }
+        {%- endif %}
+                }
+        {%- if (conf.internet_vrf) %}
+            }
+        }
+        {%- endif %}
+    }
+}
+{%- endif %}

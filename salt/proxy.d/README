@@ -1,0 +1,15 @@
+From salt documentation:
+
+"You can configure static grains for Proxy Minions. As multiple Proxy Minion 
+processes can run on the same machine, you need to index the files using the 
+Minion ID, under /etc/salt/proxy.d/<minion ID>/grains. For example, the grains 
+for the Proxy Minion router1 can be defined under 
+/etc/salt/proxy.d/router1/grains, while the grains for the Proxy Minion switch7
+can be put in /etc/salt/proxy.d/switch7/grains."
+
+In our case, since each proxy minion is in a dedicated docker container, we can 
+define its custom grains in this hierarchy and uncomment the line 
+
+#      - $PWD/salt/proxy.d/:/etc/salt/proxy.d/
+
+in docker-compose.yml.

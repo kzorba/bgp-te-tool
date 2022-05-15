@@ -1,0 +1,74 @@
+[
+    {
+        "name": "ACCEPT_ANY",
+        "slug": "accept_any",
+        "type": "import-export-policy",
+        "address_family": "0"
+    },
+    {
+        "name": "DENY_ANY",
+        "slug": "deny_any",
+        "type": "import-export-policy",
+        "address_family": "0"
+    },
+    {
+        "name": "AS65100_TRANSIT1-FR-V4-OUT",
+        "slug": "as65100_transit1-fr-v4-out",
+        "type": "export-policy",
+        "address_family": "4"
+    },
+    {
+        "name": "AS65100_TRANSIT1-FR-V6-OUT",
+        "slug": "as65100_transit1-fr-v6-out",
+        "type": "export-policy",
+        "address_family": "6"
+    },
+    {
+        "name": "AS65101_TRANSIT2-US-V4-OUT",
+        "slug": "as65101_transit2-us-v4-out",
+        "type": "export-policy",
+        "address_family": "4"
+    },
+    {
+        "name": "AS65101_TRANSIT2-US-V6-OUT",
+        "slug": "as65101_transit2-us-v6-out",
+        "type": "export-policy",
+        "address_family": "6"
+    },
+    {
+        "name": "AS65102_TRANSIT3-MF-V4-OUT",
+        "slug": "as65102_transit3-mf-v4-out",
+        "type": "export-policy",
+        "address_family": "4"
+    },
+    {
+        "name": "AS65102_TRANSIT3-MF-V6-OUT",
+        "slug": "as65102_transit3-mf-v6-out",
+        "type": "export-policy",
+        "address_family": "6"
+    },
+    {
+        "name": "AS65300_PEER1_PNI-US-V4-OUT",
+        "slug": "as65300_peer1_pni-us-v4-out",
+        "type": "export-policy",
+        "address_family": "4"
+    },
+    {
+        "name": "AS65300_PEER1_PNI-US-V6-OUT",
+        "slug": "as65300_peer1_pni-us-v6-out",
+        "type": "export-policy",
+        "address_family": "6"
+    },
+    {
+        "name": "AS65301_PEER2_PNI-US-V4-OUT",
+        "slug": "as65301_peer2_pni-us-v4-out",
+        "type": "export-policy",
+        "address_family": "4"
+    },
+    {
+        "name": "AS65301_PEER2_PNI-US-V6-OUT",
+        "slug": "as65301_peer2_pni-us-v6-out",
+        "type": "export-policy",
+        "address_family": "6"
+    }
+]

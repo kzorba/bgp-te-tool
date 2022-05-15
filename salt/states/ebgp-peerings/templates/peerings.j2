@@ -1,0 +1,67 @@
+{#-
+
+Author: Kostas Zorbadelos (kzorba@nixly.net)
+
+eBGP Peering configuration for JunOS
+Jinja template that creates JunOS configuration group snippets
+
+-#}
+
+{%- import "ebgp-peerings/templates/lib.j2" as lib -%}
+
+{%- set direct_peerings = salt['pillar.get']('bgp:direct-peerings', {}) %}
+{%- set ix_peerings = salt['pillar.get']('bgp:internet-exchange-peerings', {}) %}
+{%- set location = pillar.get('location') %}
+{%- if location is string() %}
+    {%- set location = location.upper() %}
+{%- endif %}
+{%- set OUT_POLICIES = [] -%}
+
+{%- if (direct_peerings) or (ix_peerings) %}
+groups {
+    {#
+
+    Generate eBGP peerings config group
+
+    #}
+    replace: eBGP-PEERINGS {
+        routing-instances {
+            NET {
+                protocols {
+                    bgp {
+    {%- if (direct_peerings) -%}
+        {{ lib.gen_junos_ebgp_groups(direct_peerings, OUT_POLICIES, location)|indent(width=24) }}
+    {%- endif %}
+    {#-
+    internet exchange peerings config
+    -#}
+    {%- if (ix_peerings) -%}
+        {{ lib.gen_junos_ebgp_groups(ix_peerings, OUT_POLICIES, location)|indent(width=24) }}
+    {%- endif %}
+                    }
+                }
+            }
+        }
+    }
+    {#
+
+    Generate BGP policy config group
+
+    #}
+    replace: eBGP-PEERINGS-POLICIES {
+        policy-options {
+    {%- for p in OUT_POLICIES %}
+        {{ lib.gen_junos_ebgp_out_policy(p)|indent(width=12) }}
+    {%- endfor %}
+    {{ lib.gen_junos_common_ebgp_out_policy_options()|indent(width=12) }}
+    {%- set processed_asns = [] %}
+    {%- for p in OUT_POLICIES %}
+        {%- if p['peer_asn'] not in processed_asns %}
+            {{ lib.gen_junos_ebgp_out_policy_communities(p)|indent(width=12) }}
+            {%- do processed_asns.append(p['peer_asn']) %}
+        {%- endif %}
+    {%- endfor %}
+        }
+    }
+}
+{%- endif %}

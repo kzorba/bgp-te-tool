@@ -1,0 +1,18 @@
+[
+    {
+        "name": "SIMUL-AFRINIC",
+        "slug": "simul-afrinic"
+    },
+    {
+        "name": "SIMUL-ARIN",
+        "slug": "simul-arin"
+    },
+    {
+        "name": "SIMUL-LACNIC",
+        "slug": "simul-lacnic"
+    },
+    {
+        "name": "SIMUL-RIPE",
+        "slug": "simul-ripe"
+    }
+]

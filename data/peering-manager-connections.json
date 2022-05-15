@@ -1,0 +1,22 @@
+[
+    {
+        "ipv6_address": "fd00:100::10/128",
+        "ipv4_address": "192.168.100.10/32",
+        "internet_exchange_point": {
+            "name": "IX1"
+        },
+        "router": {
+            "name": "vmx1-lab"
+        }
+    },
+    {
+        "ipv6_address": "fd00:100::30/128",
+        "ipv4_address": "192.168.100.30/32",
+        "internet_exchange_point": {
+            "name": "IX2"
+        },
+        "router": {
+            "name": "vmx3-lab"
+        }
+    }
+]

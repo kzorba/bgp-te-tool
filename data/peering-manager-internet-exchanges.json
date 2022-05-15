@@ -1,0 +1,18 @@
+[
+    {
+        "local_autonomous_system": {
+            "asn": "65000"
+        },
+        "name": "IX1",
+        "slug": "ix1",
+        "comments": "Emulation of an IX attached to vmx1-lab"
+    },
+    {
+        "local_autonomous_system": {
+            "asn": "65000"
+        },
+        "name": "IX2",
+        "slug": "ix2",
+        "comments": "Emulation of an IX attached to vmx3-lab"
+    }
+]

@@ -1,0 +1,145 @@
+[
+    {
+        "prefix": "100.65.0.0/16",
+        "rir": {
+            "name": "SIMUL-RIPE"
+        },
+        "description": "Lab GP v4 allocation",
+        "tags": [
+            {
+                "name": "GP",
+                "slug": "gp"
+            },
+            {
+                "name": "65000:3:1999",
+                "slug": "6500031999"
+            },
+            {
+                "name": "65000:400:250",
+                "slug": "65000400250"
+            },
+            {
+                "name": "65000:40:65202",
+                "slug": "650004065202"
+            },
+            {
+                "name": "route-type:static",
+                "slug": "route-typestatic"
+            }
+        ]
+    },
+    {
+        "prefix": "100.75.0.0/16",
+        "rir": {
+            "name": "SIMUL-ARIN"
+        },
+        "description": "Lab MQ v4 allocation",
+        "tags": [
+            {
+                "name": "MQ",
+                "slug": "mq"
+            },
+
+            {
+                "name": "65000:3:1999",
+                "slug": "6500031999"
+            },
+            {
+                "name": "65000:400:250",
+                "slug": "65000400250"
+            },
+            {
+                "name": "65000:602:663",
+                "slug": "65000602663"
+            },
+            {
+                "name": "route-type:static",
+                "slug": "route-typestatic"
+            }
+        ]
+    },
+    {
+        "prefix": "100.85.0.0/16",
+        "rir": {
+            "name": "SIMUL-LACNIC"
+        },
+        "description": "Lab GF v4 allocation",
+        "tags": [
+            {
+                "name": "GF",
+                "slug": "gf"
+            },
+            {
+                "name": "65000:3:1999",
+                "slug": "6500031999"
+            },
+            {
+                "name": "65000:400:250",
+                "slug": "65000400250"
+            },
+            {
+                "name": "65000:602:663",
+                "slug": "65000602663"
+            },
+            {
+                "name": "route-type:static",
+                "slug": "route-typestatic"
+            }
+        ]
+    },
+    {
+        "prefix": "100.95.0.0/16",
+        "rir": {
+            "name": "SIMUL-ARIN"
+        },
+        "description": "Lab MF v4 allocation",
+        "tags": [
+            {
+                "name": "MF",
+                "slug": "mf"
+            },
+
+            {
+                "name": "65000:3:1999",
+                "slug": "6500031999"
+            },
+            {
+                "name": "65000:400:250",
+                "slug": "65000400250"
+            }
+        ]
+    },
+    {
+        "prefix": "100.105.0.0/16",
+        "rir": {
+            "name": "SIMUL-RIPE"
+        },
+        "description": "Lab FR v4 allocation",
+        "tags": [
+            {
+                "name": "FR",
+                "slug": "fr"
+            },
+
+            {
+                "name": "65000:3:1999",
+                "slug": "6500031999"
+            },
+            {
+                "name": "65000:400:840",
+                "slug": "65000400840"
+            },
+            {
+                "name": "65000:400:663",
+                "slug": "65000400663"
+            }
+        ]
+    },
+    {
+        "prefix": "2001:db8::/32",
+        "rir": {
+            "name": "SIMUL-RIPE"
+        },
+        "description": "Lab IPv6 allocation"
+    }
+]

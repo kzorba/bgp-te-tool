@@ -1,0 +1,3 @@
+proxy:
+  proxytype: dummy
+

@@ -1,0 +1,62 @@
+#
+# salt-master config
+#
+pillar_roots:
+  base:
+    - /srv/pillar
+
+ext_pillar:
+  - cmd_json: "/usr/local/bin/peering_manager_extpillar.py -s %s"
+  - cmd_json: "/usr/local/bin/netbox_extpillar.py -s"
+
+file_roots:
+  base:
+    - /srv/salt
+    - /srv/salt/states
+
+timeout: 60
+
+# Allow large messages on the master event bus. 
+# Useful for getting the entire config of devices (original default: 1mb=1048576). 
+max_event_size: 10485760
+# allow a minion to push a file up to the master
+file_recv: true
+
+# REST API 
+# expose salt's Python API (all salt cli functionality)
+rest_cherrypy:
+  port: 8080
+  disable_ssl: false
+  ssl_crt: /etc/pki/tls/certs/localhost.crt
+  ssl_key: /etc/pki/tls/certs/localhost.key
+
+external_auth:
+  file:
+    ^filename: /u/master-api-auth/.apiusers
+    ^filetype: htpasswd
+    '*':
+      - .*
+#      - '@runner'
+#      - '@wheel'
+#      - '@jobs'
+
+#
+# When the time comes to use reactors uncomment bellow
+#
+#reactor:
+#  - 'my/custom/event/tag':
+#    `- salt://reactor/customevent.sls
+
+
+#
+# salt-sproxy config
+#
+## salt-sproxy options
+#proxy_roster: pillar
+#use_existing_proxy: true
+## Uncomment below settings to use Ansible inventory as roster
+#proxy_roster: ansible
+#roster_file: /etc/salt/inventory
+#runner_dirs:
+#  - /usr/local/lib/python3.6/dist-packages/salt_sproxy/_runners
+

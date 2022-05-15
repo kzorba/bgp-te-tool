@@ -1,0 +1,41 @@
+[
+    {
+        "name": "vmx1-lab",
+        "hostname": "vmx1-lab",
+        "platform": {
+            "name": "Juniper Junos",
+            "slug": "juniper-junos"
+        },
+        "encrypt_passwords": "false",
+        "local_autonomous_system": {
+            "asn": "65000"
+        },
+        "config_context": { "location": "FR" }
+    },
+    {
+        "name": "vmx2-lab",
+        "hostname": "vmx2-lab",
+        "platform": {
+            "name": "Juniper Junos",
+            "slug": "juniper-junos"
+        },
+        "encrypt_passwords": "false",
+        "local_autonomous_system": {
+            "asn": "65000"
+        },
+        "config_context": { "location": "US" }
+    },
+    {
+        "name": "vmx3-lab",
+        "hostname": "vmx3-lab",
+        "platform": {
+            "name": "Juniper Junos",
+            "slug": "juniper-junos"
+        },
+        "encrypt_passwords": "false",
+        "local_autonomous_system": {
+            "asn": "65000"
+        },
+        "config_context": { "location": "MF" }
+    }
+]

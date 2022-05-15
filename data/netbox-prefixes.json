@@ -1,0 +1,344 @@
+[
+    {
+        "prefix": "2001:db8:2000::/36",
+        "description": "Lab FR v6 range",
+        "tags": [
+            {
+                "name": "FR",
+                "slug": "fr"
+            },
+            {
+                "name": "65000:3:1999",
+                "slug": "6500031999"
+            },
+            {
+                "name": "65000:400:840",
+                "slug": "65000400840"
+            },
+            {
+                "name": "65000:400:663",
+                "slug": "65000400663"
+            }
+        ]
+    },
+    {
+        "prefix": "2001:db8:3000::/36",
+        "description": "Lab MF v6 range",
+        "tags": [
+            {
+                "name": "MF",
+                "slug": "mf"
+            },
+            {
+                "name": "65000:3:1999",
+                "slug": "6500031999"
+            },
+            {
+                "name": "65000:400:250",
+                "slug": "65000400250"
+            }
+        ]
+    },
+    {
+        "prefix": "2001:db8:4000::/36",
+        "description": "Lab GP v6 range",
+        "tags": [
+            {
+                "name": "GP",
+                "slug": "gp"
+            },
+            {
+                "name": "65000:3:1999",
+                "slug": "6500031999"
+            },
+            {
+                "name": "65000:400:250",
+                "slug": "65000400250"
+            },
+            {
+                "name": "65000:40:65202",
+                "slug": "650004065202"
+            },
+            {
+                "name": "route-type:static",
+                "slug": "route-typestatic"
+            },
+            {
+                "name": "preference:130",
+                "slug": "preference130"
+            }
+        ]
+    },
+    {
+        "prefix": "2001:db8:5000::/36",
+        "description": "Lab MQ v6 range",
+        "tags": [
+            {
+                "name": "MQ",
+                "slug": "mq"
+            },
+            {
+                "name": "65000:3:1999",
+                "slug": "6500031999"
+            },
+            {
+                "name": "65000:400:250",
+                "slug": "65000400250"
+            },
+            {
+                "name": "65000:602:663",
+                "slug": "65000602663"
+            },
+            {
+                "name": "route-type:static",
+                "slug": "route-typestatic"
+            },
+            {
+                "name": "preference:130",
+                "slug": "preference130"
+            }
+        ]
+    },
+    {
+        "prefix": "2001:db8:6000::/36",
+        "description": "Lab GF v6 range",
+        "tags": [
+            {
+                "name": "GF",
+                "slug": "gf"
+            },
+            {
+                "name": "65000:3:1999",
+                "slug": "6500031999"
+            },
+            {
+                "name": "65000:400:250",
+                "slug": "65000400250"
+            },
+            {
+                "name": "65000:602:663",
+                "slug": "65000602663"
+            },
+            {
+                "name": "route-type:static",
+                "slug": "route-typestatic"
+            },
+            {
+                "name": "preference:130",
+                "slug": "preference130"
+            }
+        ]
+    },
+    {
+        "prefix": "100.65.0.0/22",
+        "description": "Lab GP Residential Customers Pool1",
+        "tags": [
+            {
+                "name": "GP",
+                "slug": "gp"
+            }
+        ]
+    },
+    {
+        "prefix": "100.65.8.0/22",
+        "description": "Lab GP Residential Customers Pool2",
+        "tags": [
+            {
+                "name": "GP",
+                "slug": "gp"
+            }
+        ]
+    },
+    {
+        "prefix": "100.65.255.0/29",
+        "description": "Lab GP B2B Customer1",
+        "tags": [
+            {
+                "name": "GP",
+                "slug": "gp"
+            }
+        ]
+    },
+    {
+        "prefix": "100.65.255.8/29",
+        "description": "Lab GP B2B Customer2",
+        "tags": [
+            {
+                "name": "GP",
+                "slug": "gp"
+            }
+        ]
+    },
+    {
+        "prefix": "100.65.255.16/29",
+        "description": "Lab GP B2B Customer3",
+        "tags": [
+            {
+                "name": "GP",
+                "slug": "gp"
+            }
+        ]
+    },
+    {
+        "prefix": "100.75.0.0/22",
+        "description": "Lab MQ Residential Customers Pool1",
+        "tags": [
+            {
+                "name": "MQ",
+                "slug": "mq"
+            }
+        ]
+    },
+    {
+        "prefix": "100.75.8.0/22",
+        "description": "Lab MQ Residential Customers Pool2",
+        "tags": [
+            {
+                "name": "MQ",
+                "slug": "mq"
+            }
+        ]
+    },
+    {
+        "prefix": "100.75.255.0/29",
+        "description": "Lab MQ B2B Customer1",
+        "tags": [
+            {
+                "name": "MQ",
+                "slug": "mq"
+            }
+        ]
+    },
+    {
+        "prefix": "100.75.255.8/29",
+        "description": "Lab MQ B2B Customer2",
+        "tags": [
+            {
+                "name": "MQ",
+                "slug": "mq"
+            }
+        ]
+    },
+    {
+        "prefix": "100.75.255.16/29",
+        "description": "Lab MQ B2B Customer3",
+        "tags": [
+            {
+                "name": "MQ",
+                "slug": "mq"
+            }
+        ]
+    },
+    {
+        "prefix": "100.85.0.0/22",
+        "description": "Lab GF Residential Customers Pool1",
+        "tags": [
+            {
+                "name": "GF",
+                "slug": "gf"
+            }
+        ]
+    },
+    {
+        "prefix": "100.85.8.0/22",
+        "description": "Lab GF Residential Customers Pool2",
+        "tags": [
+            {
+                "name": "GF",
+                "slug": "gf"
+            }
+        ]
+    },
+    {
+        "prefix": "100.85.255.0/29",
+        "description": "Lab GF B2B Customer1",
+        "tags": [
+            {
+                "name": "GF",
+                "slug": "gf"
+            }
+        ]
+    },
+    {
+        "prefix": "100.95.0.0/22",
+        "description": "Lab MF Residential Customers Pool1",
+        "tags": [
+            {
+                "name": "MF",
+                "slug": "mf"
+            }
+        ]
+    },
+    {
+        "prefix": "100.95.8.0/22",
+        "description": "Lab MF Residential Customers Pool2",
+        "tags": [
+            {
+                "name": "MF",
+                "slug": "mf"
+            }
+        ]
+    },
+    {
+        "prefix": "100.95.255.0/29",
+        "description": "Lab MF B2B Customer1",
+        "tags": [
+            {
+                "name": "MF",
+                "slug": "mf"
+            }
+        ]
+    },
+    {
+        "prefix": "100.105.0.0/24",
+        "description": "Lab FR Directly attached LAN",
+        "tags": [
+            {
+                "name": "FR",
+                "slug": "fr"
+            },
+            {
+                "name": "65000:3:1999",
+                "slug": "6500031999"
+            },
+            {
+                "name": "65000:400:840",
+                "slug": "65000400840"
+            },
+            {
+                "name": "65000:400:663",
+                "slug": "65000400663"
+            }
+        ]
+    },
+    {
+        "prefix": "100.105.255.0/29",
+        "description": "Lab FR B2B Customer1",
+        "tags": [
+            {
+                "name": "FR",
+                "slug": "fr"
+            }
+        ]
+    },
+    {
+        "prefix": "100.105.255.8/29",
+        "description": "Lab FR B2B Customer2",
+        "tags": [
+            {
+                "name": "FR",
+                "slug": "fr"
+            }
+        ]
+    },
+    {
+        "prefix": "100.105.255.16/29",
+        "description": "Lab FR B2B Customer3",
+        "tags": [
+            {
+                "name": "FR",
+                "slug": "fr"
+            }
+        ]
+    }
+]

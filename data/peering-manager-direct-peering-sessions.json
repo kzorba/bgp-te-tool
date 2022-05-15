@@ -1,0 +1,312 @@
+[
+    {
+        "local_autonomous_system": {
+            "asn": "65000"
+        },
+        "local_ip_address": "192.168.100.10",
+        "autonomous_system": {
+                "asn": "65100"
+        },
+        "bgp_group": {
+            "name": "TRANSIT1"
+        },
+        "relationship": {
+            "name": "transit-provider"
+        },
+        "ip_address": "192.168.100.110",
+        "enabled": "true",
+        "import_routing_policies": [
+            1
+        ],
+        "export_routing_policies": [
+            3
+        ],
+        "router": {
+            "name": "vmx1-lab"
+        },
+        "tags": [
+            {
+                "name": "transit"
+            }
+        ]
+    },
+    {
+        "local_autonomous_system": {
+            "asn": "65000"
+        },
+        "local_ip_address": "fd00:100::10",
+        "autonomous_system": {
+                "asn": "65100"
+        },
+        "bgp_group": {
+            "name": "TRANSIT1"
+        },
+        "relationship": {
+            "name": "transit-provider"
+        },
+        "ip_address": "fd00:100::110",
+        "enabled": "true",
+        "import_routing_policies": [
+            1
+        ],
+        "export_routing_policies": [
+            4
+        ],
+        "router": {
+            "name": "vmx1-lab"
+        },
+        "tags": [
+            {
+                "name": "transit"
+            }
+        ]
+    },
+    {
+        "local_autonomous_system": {
+            "asn": "65000"
+        },
+        "local_ip_address": "192.168.100.20",
+        "autonomous_system": {
+                "asn": "65101"
+        },
+        "bgp_group": {
+            "name": "TRANSIT2"
+        },
+        "relationship": {
+            "name": "transit-provider"
+        },
+        "ip_address": "192.168.100.120",
+        "enabled": "true",
+        "import_routing_policies": [
+            1
+        ],
+        "export_routing_policies": [
+            5
+        ],
+        "router": {
+            "name": "vmx2-lab"
+        },
+        "tags": [
+            {
+                "name": "transit"
+            }
+        ]
+    },
+    {
+        "local_autonomous_system": {
+            "asn": "65000"
+        },
+        "local_ip_address": "fd00:100::20",
+        "autonomous_system": {
+                "asn": "65101"
+        },
+        "bgp_group": {
+            "name": "TRANSIT2"
+        },
+        "relationship": {
+            "name": "transit-provider"
+        },
+        "ip_address": "fd00:100::120",
+        "enabled": "true",
+        "import_routing_policies": [
+            1
+        ],
+        "export_routing_policies": [
+            6
+        ],
+        "router": {
+            "name": "vmx2-lab"
+        },
+        "tags": [
+            {
+                "name": "transit"
+            }
+        ]
+    },
+    {
+        "local_autonomous_system": {
+            "asn": "65000"
+        },
+        "local_ip_address": "192.168.100.30",
+        "autonomous_system": {
+                "asn": "65102"
+        },
+        "bgp_group": {
+            "name": "TRANSIT3"
+        },
+        "relationship": {
+            "name": "transit-provider"
+        },
+        "ip_address": "192.168.100.130",
+        "enabled": "true",
+        "import_routing_policies": [
+            1
+        ],
+        "export_routing_policies": [
+            7
+        ],
+        "router": {
+            "name": "vmx3-lab"
+        },
+        "tags": [
+            {
+                "name": "transit"
+            }
+        ]
+    },
+    {
+        "local_autonomous_system": {
+            "asn": "65000"
+        },
+        "local_ip_address": "fd00:100::30",
+        "autonomous_system": {
+                "asn": "65102"
+        },
+        "bgp_group": {
+            "name": "TRANSIT3"
+        },
+        "relationship": {
+            "name": "transit-provider"
+        },
+        "ip_address": "fd00:100::130",
+        "enabled": "true",
+        "import_routing_policies": [
+            1
+        ],
+        "export_routing_policies": [
+            8
+        ],
+        "router": {
+            "name": "vmx3-lab"
+        },
+        "tags": [
+            {
+                "name": "transit"
+            }
+        ]
+    },
+    {
+        "local_autonomous_system": {
+            "asn": "65000"
+        },
+        "local_ip_address": "192.168.100.20",
+        "autonomous_system": {
+                "asn": "65300"
+        },
+        "bgp_group": {
+            "name": "PEER1_PNI"
+        },
+        "relationship": {
+            "name": "private-peering"
+        },
+        "ip_address": "192.168.100.121",
+        "enabled": "true",
+        "import_routing_policies": [
+            1
+        ],
+        "export_routing_policies": [
+            9
+        ],
+        "router": {
+            "name": "vmx2-lab"
+        },
+        "tags": [
+            {
+                "name": "peer"
+            }
+        ]
+    },
+    {
+        "local_autonomous_system": {
+            "asn": "65000"
+        },
+        "local_ip_address": "fd00:100::20",
+        "autonomous_system": {
+                "asn": "65300"
+        },
+        "bgp_group": {
+            "name": "PEER1_PNI"
+        },
+        "relationship": {
+            "name": "private-peering"
+        },
+        "ip_address": "fd00:100::121",
+        "enabled": "true",
+        "import_routing_policies": [
+            1
+        ],
+        "export_routing_policies": [
+            10
+        ],
+        "router": {
+            "name": "vmx2-lab"
+        },
+        "tags": [
+            {
+                "name": "peer"
+            }
+        ]
+    },
+    {
+        "local_autonomous_system": {
+            "asn": "65000"
+        },
+        "local_ip_address": "192.168.100.20",
+        "autonomous_system": {
+                "asn": "65301"
+        },
+        "bgp_group": {
+            "name": "PEER2_PNI"
+        },
+        "relationship": {
+            "name": "private-peering"
+        },
+        "ip_address": "192.168.100.122",
+        "enabled": "true",
+        "import_routing_policies": [
+            1
+        ],
+        "export_routing_policies": [
+            11
+        ],
+        "router": {
+            "name": "vmx2-lab"
+        },
+        "tags": [
+            {
+                "name": "peer"
+            }
+        ]
+    },
+    {
+        "local_autonomous_system": {
+            "asn": "65000"
+        },
+        "local_ip_address": "fd00:100::20",
+        "autonomous_system": {
+                "asn": "65301"
+        },
+        "bgp_group": {
+            "name": "PEER2_PNI"
+        },
+        "relationship": {
+            "name": "private-peering"
+        },
+        "ip_address": "fd00:100::122",
+        "enabled": "true",
+        "import_routing_policies": [
+            1
+        ],
+        "export_routing_policies": [
+            12
+        ],
+        "router": {
+            "name": "vmx2-lab"
+        },
+        "tags": [
+            {
+                "name": "peer"
+            }
+        ]
+    }
+]

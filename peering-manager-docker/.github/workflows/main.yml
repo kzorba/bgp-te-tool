@@ -1,0 +1,27 @@
+---
+name: main
+
+on:
+  push:
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        build_cmd:
+          - ./build-latest.sh
+          - ./build.sh main
+      fail-fast: false
+    runs-on: ubuntu-latest
+    name: Build new images
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Build the image with '${{ matrix.build_cmd }}'
+        id: docker-build
+        run: ${{ matrix.build_cmd }}
+        env:
+          GH_ACTION: enable
+      - name: Test the image
+        run: IMAGE="${FINAL_DOCKER_TAG}" ./test.sh
+        if: steps.docker-build.outputs.skipped != 'true'

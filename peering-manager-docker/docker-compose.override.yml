@@ -1,0 +1,8 @@
+---
+services:
+  peering-manager:
+    user: "root:root"
+    ports:
+      - 8080:8080
+  peering-manager-worker:
+    user: "root:root"

@@ -1,0 +1,14 @@
+{
+  "extends": [
+    "config:base",
+    ":disableDependencyDashboard"
+  ],
+  "enabled": true,
+  "labels": ["maintenance"],
+  "baseBranches": ["develop"],
+  "pip_requirements": {
+    "fileMatch": [
+      "requirements-container.txt"
+    ]
+  }
+}

@@ -4,8 +4,8 @@ SCRIPTPATH="$( cd -- "$(dirname "$0")" >/dev/null 2>&1 ; pwd -P )"
 cd ${SCRIPTPATH}
 
 export VMXS="vmx1-lab vmx2-lab vmx3-lab"
-export SALT_MASTER="kzorba/salt-master:focal-salt_3002-napalm_3.3.1p1"
-export SALT_PROXY_MINION="kzorba/salt-proxy-minion:focal-salt_3002-napalm_3.3.1p1"
+export SALT_MASTER="kzorba/salt-master:focal-salt_3002-napalm_3.4.1p1"
+export SALT_PROXY_MINION="kzorba/salt-proxy-minion:focal-salt_3002-napalm_3.4.1p1"
 export GOBGP="kzorba/gobgp"
 export EXTERNAL_PEERS="transit1-fr peer1_ix-fr peer2_ix-fr peer3_ix-fr peer4_ix-fr transit2-us peer1_pni-us peer2_pni-us transit3-mf peer1_ix-mf peer2_ix-mf"
 export CUSTOMER_PEERS="transit_c1-fr b2b_c1-fr"

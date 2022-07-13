@@ -19,7 +19,7 @@ ADD scripts/install_salt_master.sh /root/install_salt_master.sh
 RUN /root/install_salt_master.sh
 
 # Install NAPALM
-RUN pip3 --no-cache-dir install napalm==3.3.1
+RUN pip3 --no-cache-dir install napalm==3.4.1
 
 # Patch NAPALM
 COPY patches/001_napalm_junos_cache_interface_list.patch /tmp

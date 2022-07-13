@@ -1,5 +1,5 @@
 diff --git a/napalm/junos/junos.py b/napalm/junos/junos.py
-index 7ca5447f..b86a8c28 100644
+index 7d3b4204..667ca9fb 100644
 --- a/napalm/junos/junos.py
 +++ b/napalm/junos/junos.py
 @@ -132,6 +132,8 @@ class JunOSDriver(NetworkDriver):
@@ -11,7 +11,7 @@ index 7ca5447f..b86a8c28 100644
          self.profile = [self.platform]
  
      def open(self):
-@@ -399,10 +401,13 @@ class JunOSDriver(NetworkDriver):
+@@ -400,10 +402,13 @@ class JunOSDriver(NetworkDriver):
          output = self.device.facts
  
          uptime = self.device.uptime or -1

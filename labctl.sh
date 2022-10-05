@@ -14,20 +14,20 @@ export PEERS="${EXTERNAL_PEERS} ${CUSTOMER_PEERS}"
 case "$1" in
 
 build)
-	echo "==> Building docker images for salt and gobgp"
-	echo "*"
+    echo "==> Building docker images for salt and gobgp"
+    echo "*"
     echo "* docker build -t ${SALT_MASTER} -f Dockerfile.salt-master ."
-	echo "*"
+    echo "*"
     docker build -t ${SALT_MASTER} -f Dockerfile.salt-master .
-	echo "*"
+    echo "*"
     echo "* docker build -t ${SALT_PROXY_MINION} -f Dockerfile.salt-proxy-minion ."
-	echo "*"
+    echo "*"
     docker build -t ${SALT_PROXY_MINION} -f Dockerfile.salt-proxy-minion .
-	echo "*"
+    echo "*"
     echo "* docker build -t ${GOBGP} -f Dockerfile.gobgp ."
-	echo "*"
+    echo "*"
     docker build -t ${GOBGP} -f Dockerfile.gobgp .
-	echo "==> Done"
+    echo "==> Done"
 ;;
 
 start)
@@ -39,18 +39,18 @@ start)
     $0 start-sot
     sleep 30
     $0 start-peers
-	echo "==> Done. Check for proper startup of all containers."
+    echo "==> Done. Check for proper startup of all containers."
 ;;
 
 start-routers)
-	echo "==> Starting routers..."
+    echo "==> Starting routers..."
     echo "==> Check status with $0 router-check"
-	docker-compose up -d --remove-orphans vmx1-lab vmx2-lab vmx3-lab
+    docker-compose up -d --remove-orphans vmx1-lab vmx2-lab vmx3-lab
 ;;
 
 start-salt)
-	echo "==> Starting salt master and proxies..."
-	docker-compose up -d --remove-orphans salt-master proxy-vmx1-lab proxy-vmx2-lab proxy-vmx3-lab
+    echo "==> Starting salt master and proxies..."
+    docker-compose up -d --remove-orphans salt-master proxy-vmx1-lab proxy-vmx2-lab proxy-vmx3-lab
 ;;
 
 start-sot)
@@ -69,14 +69,14 @@ start-peers)
 ;;
 
 stop-routers)
-	echo "==> Stopping routers..."
-	docker-compose stop vmx1-lab vmx2-lab vmx3-lab
+    echo "==> Stopping routers..."
+    docker-compose stop vmx1-lab vmx2-lab vmx3-lab
     docker-compose rm -f vmx1-lab vmx2-lab vmx3-lab
 ;;
 
 stop-salt)
-	echo "==> Stopping salt master and proxies..."
-	docker-compose stop salt-master proxy-vmx1-lab proxy-vmx2-lab proxy-vmx3-lab
+    echo "==> Stopping salt master and proxies..."
+    docker-compose stop salt-master proxy-vmx1-lab proxy-vmx2-lab proxy-vmx3-lab
     docker-compose rm -f salt-master proxy-vmx1-lab proxy-vmx2-lab proxy-vmx3-lab
 ;;
 
@@ -97,7 +97,7 @@ stop-peers)
 
 stop)
     echo "==> Clearing up lab..."
-	docker-compose down
+    docker-compose down
     $0 stop-sot
     echo "==> Done"
 ;;

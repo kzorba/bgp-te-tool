@@ -220,6 +220,8 @@ vmx-license-install)
 ;;
 
 router-check)
+    # Fix private key permissions to access the routers
+    chmod 600 ${SCRIPTPATH}/napalm-ssh-keys/lab_id_rsa ${SCRIPTPATH}/napalm-ssh-keys/salty_id_ecdsa
     cd juniper-vmx && ./getpass.sh
     cd ${SCRIPTPATH}
 ;;

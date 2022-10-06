@@ -1,4 +1,5 @@
 ---
+version: "3.4"
 services:
   peering-manager:
     user: "root:root"

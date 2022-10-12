@@ -1,14 +1,19 @@
-#+TITLE: Readme
 #+AUTHOR: Kostas Zorbadelos (kzorba AT nixly DOT net)
 
-* bgp-te-tool: A tool to automate BGP Traffic Engineering in ISPs
+* bgp-te-tool: A tool to automate BGP Traffic Engineering in IP networks
 ** Description
-A demonstration of a BGP TE tool in a lab topology using Juniper vMX routers.
+An automation tool to handle inter-AS inbound traffic engineering in IP networks. The tool has good application in ISP networks that are dominated mostly by downstream traffic and are present in multiple geographic areas, peering with many third parties in IXes or PNIs. Of course it can also apply to different categories of IP networks that want to handle their inbound traffic with flexibility, fast reaction and correctness.
 
-The tool utilizes Netbox (IPAM to contain announcement prefixes) and peering-manager (for eBGP Internet peerings) as sources of truth. These systems contain our intended announcements, their policy and all the BGP peerings with the various peers.
+The tool is demonstrated in this repository as a lab topology using Juniper vMX routers.
+It utilizes Netbox (IPAM to contain announcement prefixes) and peering-manager (for eBGP Internet peerings) as sources of truth. These systems contain the intended announcements, their policy and all the BGP peerings with the various third parties.
 
-The announcement prefixes are tagged with large communities (rfc 8092) indicating the intended policy. The design of the system was inspired by [[https://datatracker.ietf.org/doc/html/rfc8195][Use of BGP Large Communities]]. The configuration is generated and pushed on the routers via [[https://saltproject.io/][Salt]]/[[https://github.com/napalm-automation/napalm][NAPALM]]. The current implementation supports Juniper/JUNOS devices and is demonstrated on a specific network architecture (IP/MPLS core with L3VPNs and Internet service on a dedicated VRF).
+The main idea of the tool is that announcements are tagged with (large) communities that define the policies (treatement) of prefixes in the various peerings. The intended state is then applied as configuration in the AS-border routers.
 
-The tool ideas hopefully are general enough to be able to be implemented in other vendors and  network architectures as needed.
+The design of the system was inspired by [[https://datatracker.ietf.org/doc/html/rfc8195][Use of BGP Large Communities]]. The configuration is generated and pushed on the routers via [[https://saltproject.io/][Salt]]/[[https://github.com/napalm-automation/napalm][NAPALM]]. The current implementation supports Juniper/JunOS devices and is demonstrated on a specific network architecture (IP/MPLS core with L3VPNs and Internet service in a dedicated VRF).
 
-The full documentation of the tool if currently a work in progress.
+The tool ideas hopefully are general enough to be able to be implemented in other vendors and network architectures as needed.
+
+The project's [[https://github.com/kzorba/bgp-te-tool/wiki][wiki]] contains the full documentation of the tool.
+
+** Contributions
+This work is provided under the terms of the ISC license to promote its usage. Contributions are highly welcome (especially adaptation of the tool to other vendor equipment or network architectures). I would also be very interested to know whether any network operators plan or use the approach proposed in the tool. Feel free to contact me for any input / suggestions and comments.

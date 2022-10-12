@@ -86,7 +86,11 @@ group {{ pg['group'] }} {
         import DENY_ALL;
                 {%- endif %}
                 {%- if p['export_policy'] %}
+                        {%- if salt['cp.stat_file']("salt://ebgp-peerings/templates/"~p['export_policy']~".j2") %}
+        export [ CUSTOM-{{ p['export_policy'] }} {{ p['export_policy'] }} ];
+                        {%- else %}
         export {{ p['export_policy'] }};
+                        {%- endif %}
                     {%- set policy_rec = { 'name': p['export_policy'], 'family': p['family'], 'peer_asn': p['peer_asn'], 'relationship': p['relationship'], 'location': location } %}
                     {%- do policies.append(policy_rec) %}
                 {%- else %}
@@ -207,14 +211,6 @@ policy-statement {{ p['name'] }} {
             next term;
         }
     }
-    {%- if salt['cp.stat_file']("salt://ebgp-peerings/templates/"~p['name']~".j2") %}
-    term CUSTOM {
-        from {
-            policy CUSTOM-{{ p['name'] }};
-        }
-        then accept;
-    }
-    {%- endif %}
     {%- if p['relationship'] == "transit-provider" %}
     term RTBH {
         from community RTBH-AS{{ conf.local_asn }};

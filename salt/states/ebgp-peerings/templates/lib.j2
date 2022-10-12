@@ -3,7 +3,7 @@ Author: Kostas Zorbadelos (kzorba@nixly.net)
 
 eBGP Peering configuration for JunOS - supporting library
 
--#}}
+-#}
 
 {%- import "ebgp-peerings/templates/config.j2" as conf -%}
 
@@ -13,7 +13,7 @@ eBGP Peering configuration for JunOS - supporting library
     {{ aDict }}
 {%- endmacro %}
 
-{% macro gen_junos_ebgp_groups(bgp_peerings={}, policies=[], location='') %}
+{% macro gen_junos_ebgp_groups(bgp_peerings={}, policies=[], location='', opts=[]) %}
     {#-
     Generate junos bgp groups configuration under protocols | bgp hierarchy
 
@@ -30,6 +30,9 @@ eBGP Peering configuration for JunOS - supporting library
     is used to generate the actual junos policy configuration, using large
     communities.
 
+    opts (in): a list containing various options for the BGP group configuration.
+    We support "REMOVE_PRIVATE" and "MULTIPATH"
+
     This macro generates the junos configuration of all the eBGP peerings,
     based on information contained in peering-manager exposed in Salt as a
     dictionary from an external pillar.
@@ -38,6 +41,12 @@ eBGP Peering configuration for JunOS - supporting library
         {%- for pg in bgp_peerings %}
 group {{ pg['group'] }} {
     type external;
+    {%- if "REMOVE_PRIVATE" in opts %}
+    remove-private;
+    {%- endif %}
+    {%- if "MULTIPATH" in opts %}
+    multipath multiple-as;
+    {%- endif %}
             {%- for p in pg['peerings'] %}
                 {%- if not p['is_enabled'] %}
     inactive: neighbor {{ p['neighbor'] }} {
@@ -63,7 +72,7 @@ group {{ pg['group'] }} {
                 }
             }
         }
-               	{%- else %}
+                {%- else %}
         family {{ p['family'] }} {
             unicast;
         }

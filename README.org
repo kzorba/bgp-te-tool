@@ -2,7 +2,7 @@
 
 * bgp-te-tool: A tool to automate BGP Traffic Engineering in IP networks
 ** Description
-An automation tool to handle inter-AS inbound traffic engineering in IP networks. The tool has good application in ISP networks that are dominated mostly by downstream traffic and are present in multiple geographic areas, peering with many third parties in IXes or PNIs. Of course it can also apply to different categories of IP networks that want to handle their inbound traffic with flexibility, fast reaction and correctness.
+An automation tool to handle inter-AS *inbound* traffic engineering in IP networks. The tool has good application in ISP networks that are dominated mostly by downstream traffic and are present in multiple geographic areas, peering with many third parties in IXes or PNIs. Of course it can also apply to different categories of IP networks that want to handle their inbound traffic with flexibility, fast reaction and correctness.
 
 The tool is demonstrated in this repository as a lab topology using Juniper vMX routers.
 It utilizes Netbox (IPAM to contain announcement prefixes) and peering-manager (for eBGP Internet peerings) as sources of truth. These systems contain the intended announcements, their policy and all the BGP peerings with the various third parties.

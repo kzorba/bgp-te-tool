@@ -30,18 +30,6 @@ build)
     echo "==> Done"
 ;;
 
-start)
-    echo "==> Bring up lab topology: routers, salt, sources of truth and peers"
-    $0 start-routers
-    sleep 360
-    $0 start-salt
-    sleep 30
-    $0 start-sot
-    sleep 30
-    $0 start-peers
-    echo "==> Done. Check for proper startup of all containers."
-;;
-
 start-routers)
     echo "==> Starting routers..."
     echo "==> Check status with $0 router-check"
@@ -96,9 +84,11 @@ stop-peers)
 ;;
 
 stop)
-    echo "==> Clearing up lab..."
+    echo "==> Shutting the lab down..."
     docker-compose down
     $0 stop-sot
+    echo "==> Cleaning up local volumes..."
+    docker volume prune -f
     echo "==> Done"
 ;;
 
@@ -226,86 +216,17 @@ router-check)
     cd ${SCRIPTPATH}
 ;;
 
-start-announcements)
-    echo "==> Injecting bgp announcements to gobgp peers"
-	for p in ${PEERS}
-	do 	
-		echo "* Feeding prefixes of $p"
-		docker exec -ti $p /bin/bash -c "goBGPFeed.sh < /data/gobgp_v4_$p.txt"
-		docker exec -ti $p /bin/bash -c "goBGPFeed.sh < /data/gobgp_v6_$p.txt"
-	done
-;;
-
-stop-announcements)
-    echo "==> Clearing bgp announcements from gobgp peers"
-	for p in ${PEERS}
-	do 	
-		echo -n "* Withdrawing announcements from $p"
-		docker exec -ti $p /bin/bash -c "gobgp global rib del all -a ipv4"
-		echo -n " ."
-		docker exec -ti $p /bin/bash -c "gobgp global rib del all -a ipv6"
-		echo -n ". "
-		echo "Done"
-	done
-;;
-
-start-customer-announcements)
-    echo "==> Injecting bgp announcements to customer gobgp peers"
-	for p in ${CUSTOMER_PEERS}
-	do 	
-		echo "* Feeding prefixes of $p"
-		docker exec -ti $p /bin/bash -c "goBGPFeed.sh < /data/gobgp_v4_$p.txt"
-		docker exec -ti $p /bin/bash -c "goBGPFeed.sh < /data/gobgp_v6_$p.txt"
-	done
-;;
-
-stop-customer-announcements)
-    echo "==> Clearing bgp announcements from customer gobgp peers"
-	for p in ${CUSTOMER_PEERS}
-	do 	
-		echo -n "* Withdrawing announcements from $p"
-		docker exec -ti $p /bin/bash -c "gobgp global rib del all -a ipv4"
-		echo -n " ."
-		docker exec -ti $p /bin/bash -c "gobgp global rib del all -a ipv6"
-		echo -n ". "
-		echo "Done"
-	done
-;;
-
-start-external-announcements)
-    echo "==> Injecting bgp announcements to external gobgp peers"
-	for p in ${EXTERNAL_PEERS}
-	do 	
-		echo "* Feeding prefixes of $p"
-		docker exec -ti $p /bin/bash -c "goBGPFeed.sh < /data/gobgp_v4_$p.txt"
-		docker exec -ti $p /bin/bash -c "goBGPFeed.sh < /data/gobgp_v6_$p.txt"
-	done
-;;
-
-stop-external-announcements)
-    echo "==> Clearing bgp announcements from external gobgp peers"
-	for p in ${EXTERNAL_PEERS}
-	do 	
-		echo -n "* Withdrawing announcements from $p"
-		docker exec -ti $p /bin/bash -c "gobgp global rib del all -a ipv4"
-		echo -n " ."
-		docker exec -ti $p /bin/bash -c "gobgp global rib del all -a ipv6"
-		echo -n ". "
-		echo "Done"
-	done
-;;
-
 *)
     echo "Usage: $0 command"
     echo
     echo "Available commands:"
     echo "  build: build the Docker images (salt master and proxy minion plus gobgp)"
-    echo "  start: start the lab using docker-compose. Look at docker-compose.yml"
-    echo "  stop: stop the lab using docker-compose"
+    echo "  stop: stop the lab using docker-compose and clean up local volumes"
     echo "  status: docker ps plus Juniper routers check"
     echo "  ---"
     echo "  refresh: update all lab containers via docker-compose"
     echo "  vmx-license-install: install a vmx license to the vmx containers"
+    echo "  router-check: check proper startup of Juniper routers in the topology"
     echo "  load-data: load data in sources of truth (netbox, peering-manager)"
     echo "  start-routers: start the router containers (Juniper vMX)"
     echo "  start-salt: start salt containers (master and proxies)"
@@ -315,15 +236,6 @@ stop-external-announcements)
     echo "  stop-salt: stop salt containers (master and proxies)"
     echo "  stop-sot: stop the sources of truth (netbox, peering-manager)"
     echo "  stop-peers: remove all (go)bgp speakers from the topology"
-    echo "  start-announcements: feed the prefixes to the bgp speakers simulating transits and peers."
-    echo "                       Prefixes will be announced"
-    echo "  stop-announcements: clear the bgp announcements of gobgp peers"
-    echo "  start-customer-announcements: feed the prefixes to the bgp speakers simulating customers."
-    echo "                                Prefixes will be announced"
-    echo "  stop-customer-announcements: clear the bgp announcements of customer gobgp peers"
-    echo "  start-external-announcements: feed the prefixes to the external bgp speakers."
-    echo "                                Prefixes will be announced"
-    echo "  stop-external-announcements: clear the bgp announcements of external gobgp peers"
     echo
     exit 1
     ;;
